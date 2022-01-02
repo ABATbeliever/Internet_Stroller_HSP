@@ -1,0 +1,37 @@
+#define DIID_DWebBrowserEvents2 "{34A715A0-6587-11D0-924A-0020AFC7AC4D}"
+#define DISPID_NAVIGATECOMPLETE2 252
+cls 1
+dim ie
+dim ie_event
+
+url="www.youtube.com"
+objsize 120,24
+pos 270,0:button "ƒz[ƒ€",*wow
+pos 150,0:button "i‚Þ",*go_f
+pos 30,0:button "–ß‚é",*go_b
+axobj ie, "Shell.Explorer.2",640,480-30
+comevent ie_event, ie, "{34A715A0-6587-11D0-924A-0020AFC7AC4D}",*event
+ie->"Navigate" url
+*main
+stop
+*event
+dispid = comevdisp(ie_event)
+if dispid = DISPID_NAVIGATECOMPLETE2 : gosub *OnNavigateComplete2
+return
+
+*OnNavigateComplete2
+name = ie("LocationURL")
+pDoc = ie("Document")
+delcom pDoc
+title name
+return
+*wow
+url="www.youtube.com"
+ie->"Navigate" url
+goto *main
+*go_f
+ie->"GoForward"
+goto *main
+*go_b
+ie->"GoBack"
+goto *main

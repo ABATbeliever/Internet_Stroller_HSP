@@ -1,0 +1,3 @@
+ReleaseNote,0.1.0
+
+Rubbish Browserから移植(β)
