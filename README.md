@@ -1,2 +1,3 @@
 # Internet_Stroller
-Please wait...
+できる限り最新版をDownnloadしてください
+相談はTwitter(@abatbeliever)まで!
