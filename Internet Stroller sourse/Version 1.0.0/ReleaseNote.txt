@@ -1,0 +1,3 @@
+ReleaseNote
+
+0.2.3の製品版
