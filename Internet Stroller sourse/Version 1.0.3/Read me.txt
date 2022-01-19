@@ -6,7 +6,8 @@
 　>>Internet Stroller (Version).exe
   >>app\main.exe
   >>app\SplashEND.bat
-  の三つがちゃんと存在することを確認してください
+  >>app\console.exe
+  の4つがちゃんと存在することを確認してください
 
 
 =====================================================Made by ABATBeliever
