@@ -1,0 +1,60 @@
+@echo off
+title Internet Stroller Console
+echo ^<Internet Stroller Console^>
+echo.
+for /f %%a in (version.txt) do (
+echo Internet Stroller Console Version %%a
+)
+echo Console Version 3.0
+goto help
+
+:help
+echo.
+echo ===========================
+echo 0:コンソール・本体の再起動
+echo 1:本体の強制終了
+echo 2:このコンソールの終了
+echo 3:すべて終了
+echo 4:詳細情報
+echo 5:リストの再表示
+echo ===========================
+echo.
+goto main
+
+:main
+set c=enpty
+set /p c="Choise:"
+if %c% == 0 (goto 0)
+if %c% == 1 (goto 1)
+if %c% == 2 (goto 2)
+if %c% == 3 (goto 3)
+if %c% == 4 (goto 4)
+if %c% == 5 (goto 5)
+goto main
+
+:0
+start console.exe
+taskkill /f /im main.exe
+start main.exe
+exit
+
+:1
+taskkill /f /im main.exe
+goto main
+
+:2
+exit
+
+:3
+taskkill /f /im main.exe
+exit
+
+:4
+echo.
+echo 言語:HSP、MSDOS、VisualBat
+echo 製作者:ABATBeliever
+echo.
+goto main
+
+:5
+goto help
