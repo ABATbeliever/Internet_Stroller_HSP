@@ -1,0 +1,12 @@
+======<InternetStrollerへようこそ>======
+
+・このソフトにウイルスはありません
+・このソフトのコードを再配布しないでください
+・このソフトは仕様上WDに消されることがあります。必ず、
+　>>Internet Stroller (Version).exe
+  >>app\main.exe
+  >>app\SplashEND.bat
+  の三つがちゃんと存在することを確認してください
+
+
+=====================================================Made by ABATBeliever
