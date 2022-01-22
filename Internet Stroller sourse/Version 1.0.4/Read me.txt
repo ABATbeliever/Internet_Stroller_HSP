@@ -3,11 +3,10 @@
 ・このソフトにウイルスはありません
 ・このソフトのコードを再配布しないでください
 ・このソフトは仕様上WDに消されることがあります。必ず、
-　>>Internet Stroller (Version).exe
+　>>Internet Stroller.exe
   >>app\main.exe
-  >>app\SplashEND.bat
   >>app\console.exe
-  の4つがちゃんと存在することを確認してください
+  の3つがちゃんと存在することを確認してください
 
 
 =====================================================Made by ABATBeliever
