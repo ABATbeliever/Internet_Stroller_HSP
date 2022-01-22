@@ -3,7 +3,7 @@
 ・このソフトにウイルスはありません
 ・このソフトのコードを再配布しないでください
 ・このソフトは仕様上WDに消されることがあります。必ず、
-　>>Internet Stroller (Version).exe
+　>>Internet Stroller.exe
   >>app\main.exe
   >>app\console.exe
   の3つがちゃんと存在することを確認してください
