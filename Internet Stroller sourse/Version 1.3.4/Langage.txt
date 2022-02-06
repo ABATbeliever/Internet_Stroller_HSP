@@ -1,0 +1,5 @@
+Please Write on app\lang.txt
+
+Japanese=jp
+English=en
+Russian=ru
