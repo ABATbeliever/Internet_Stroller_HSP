@@ -1,0 +1,26 @@
+#define SetWndCenter width , , (ginfo(20)-ginfo(10))/2, (ginfo(21)-ginfo(11))/2
+#include "user32.as"
+gsel ,2
+x = (ginfo(20) - ginfo(10)) / 2
+y = (ginfo(21) - ginfo(11)) / 2
+width , , x, y
+GetWindowLong hwnd, -16
+SetWindowLong hwnd, -20, stat | $1000
+SetWindowLong hwnd, -20, stat | $20000
+SetWindowLong hwnd, -16, stat - $20000
+SetWindowLong hwnd, -16, stat - $80000
+SetWindowLong hwnd, -16, stat - $400000
+SetWindowLong hwnd, -16, stat - $800000
+width 600, 290
+sdim a,3200
+bload "version.txt",a
+pos 0,30:picload "Splash.jpg",1
+pos 0,0:mes "Internet Stroller - 起動中"
+pos 0,290:mes "MADE BY ABATBeliever　　　　　　　　　　　　　　　　　 　　　Version"
+pos 550,290:
+mes a
+wait 300
+sendmsg hwnd, $112, $F020
+wait 30
+exec "InternetStrollerBrowse.exe"
+end
