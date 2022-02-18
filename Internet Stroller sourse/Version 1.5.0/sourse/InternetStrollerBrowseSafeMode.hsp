@@ -1,0 +1,189 @@
+//This is "InternetStrollerBrowseSafeMode.exe" Sourse
+title "Safemode - Please choose a Language"
+ve="1.0.2"
+pos 0,0:button "English",*le
+pos 70,0:button "Japanese",*lj
+stop
+*le
+lang="en"
+title "Safemode - Please Wait"
+goto *boot
+*lj
+lang="ja"
+title "Safemode - Please Wait"
+goto *boot
+
+*boot
+#define DIID_DWebBrowserEvents2 "{34A715A0-6587-11D0-924A-0020AFC7AC4D}"
+#define DISPID_NAVIGATECOMPLETE2 252
+#define WS_CLIPSIBLINGS     0x04000000
+#define WS_CHILD            0x40000000
+#define WS_VISIBLE          0x10000000
+#define TCIF_TEXT               0x0001
+#define TCM_FIRST               0x1300  
+#define TCM_INSERTITEMA         (TCM_FIRST + 7)
+#define TCM_GETCURSEL           (TCM_FIRST + 11)
+#define TCM_ADJUSTRECT          (TCM_FIRST + 40)
+#define SW_HIDE             0
+#define SW_SHOW             5
+#enum BTID_BACK = 0
+#enum BTID_REFRESH
+#enum BTID_FORWARD
+#enum BTID_HOME
+#enum BTID_CLOSE
+#define WM_NOTIFY                       0x004E
+#define TCN_FIRST               (-550)
+#define TCN_SELCHANGE           (TCN_FIRST - 1)
+#module "trayicon"
+#define __TRAYICONSAMPLE__
+#define WM_TRAYEVENTSTART $900
+#define MAXICONS 16
+#uselib "Kernel32.dll"
+#func GetModuleFileName "GetModuleFileNameA" nullptr,prefstr,int
+#uselib "Shell32.dll"
+#func ExtractIconEx "ExtractIconExA" sptr,int,nullptr,var,int
+#func Shell_NotifyIcon "Shell_NotifyIconA" int,var
+#uselib "user32.dll"
+#func DestroyIcon "DestroyIcon" int
+#deffunc DestroyTrayIcon int iconid 
+dim NOTIFYICONDATA,88/4
+NOTIFYICONDATA = 88, hWnd, iconid
+Shell_NotifyIcon 2, NOTIFYICONDATA
+if hIcon.iconid { DestroyIcon hIcon.iconid : hIcon.iconid = 0 }
+return
+#deffunc CreateTrayIcon str tooltip, int nIconIndex, int iconid
+if hIcon.iconid { DestroyTrayIcon iconid }
+ExtractIconEx icofile, nIconIndex, hIcon.iconid, 1
+dim NOTIFYICONDATA,88/4
+NOTIFYICONDATA = 88, hWnd_, iconid, 7, WM_TRAYEVENTSTART, hIcon.iconid
+poke NOTIFYICONDATA, 4*6, tooltip
+Shell_NotifyIcon 0, NOTIFYICONDATA
+return
+#deffunc PopupBalloonTip str balloonInfoTitle, str balloonInfo, int balloonIcon,int iconid
+    dim NOTIFYICONDATA,488/4
+    NOTIFYICONDATA = 488, hWnd_, iconid, $10
+    poke NOTIFYICONDATA, 4*40, balloonInfo
+    NOTIFYICONDATA.104 = 1000*20
+    poke NOTIFYICONDATA, 4*105, balloonInfoTitle
+    NOTIFYICONDATA.121 = balloonIcon
+    Shell_NotifyIcon 1, NOTIFYICONDATA
+return
+#deffunc SetTrayIconFile str filename 
+sdim icofile,1024
+if filename = "" { GetModuleFileName 1024 : icofile = refstr } 
+else { icofile = filename }
+return 
+#deffunc _init_trayicon_
+mref bmscr,96: hWnd_ = bmscr.13
+dim hIcon,MAXICONS : SetTrayIconFile "" : return
+length
+#deffunc _deinit_trayicon_ onexit
+foreach hIcon : if hIcon.cnt { DestroyTrayIcon cnt } loop : return
+#global
+_init_trayicon_
+#ifdef __TRAYICONSAMPLE__@trayicon
+win_x = 640
+win_y = 480
+IE.ScriptErrorsSuppressed = false
+cls 1
+dim ie
+dim ie_event
+sdim url,512
+url="bing.com"
+screen 0, 1400, 700
+objsize 1235,24
+pos 0,2:mes "URL=>"
+pos 0,26:mes "Internet Stroller SafeMode V" + ve
+pos 40,0:input url
+objsize 120,22
+pos 650,24:button "EXIT",*reb
+if ( lang = "ja" ) {
+pos 1278,1:button "URLへ移動",*wow
+wait 10
+pos 400,24:button "読み込み直し(Reload)",*re
+wait 10
+pos 520,24:button "進む(Go)",*go_f
+pos 280,24:button "戻る(Back)",*go_b
+wait 10
+pos 1155,24:button "MicrosoftBing",*home1
+wait 10
+pos 1278,24:button "DuckDuckGO",*home2
+wait 10
+}
+if ( lang = "en" ) {
+pos 1278,1:button "Go to URL",*wow
+wait 10
+pos 400,24:button "Reload",*re
+wait 10
+pos 520,24:button "Go",*go_f
+wait 10
+pos 280,24:button "Back",*go_b
+wait 10
+pos 1155,24:button "MicrosoftBing",*home1
+wait 10
+pos 1278,24:button "DuckDuckGO",*home2
+wait 10
+}
+pos 0,48
+wait 100
+axobj ie, "Shell.Explorer.1",1400,700-48
+num=stat
+comevent ie_event, ie, "{34A715A0-6587-11D0-924A-0020AFC7AC4D}",*event
+ie->"Navigate" url
+onexit *shX
+*main
+ie->"Navigate" url
+stop
+*event
+dispid = comevdisp(ie_event)
+if dispid = DISPID_NAVIGATECOMPLETE2 : gosub *OnNavigateComplete2
+return
+
+*OnNavigateComplete2
+name = ie("LocationURL")
+objprm 0,name
+pDoc = ie("Document")
+name = pDoc("Title")
+title "Internet Stroller SafeMode Vesion " + ve + " - " + name
+delcom pDoc
+return
+*wow
+ie->"Navigate" "url"
+goto *main
+*go_f
+ie->"GoForward"
+goto *main
+*go_b
+ie->"GoBack"
+goto *main
+*home1
+url="www.bing.com/"
+ie->"Navigate" "url.https://bing.com/"
+wait 100
+ie->"Navigate" "url"
+ie->"GoForward"
+goto *main
+*home2
+url="www.duckduckgo.com/"
+ie->"Navigate" "url.https://duckduckgo.com/"
+wait 100
+ie->"Navigate" "url"
+ie->"GoForward"
+goto *main
+*re
+url=""
+ie->"Navigate" "url"
+ie->"GoForward"
+goto *main
+*reb
+sendmsg hwnd, $112, $F020
+wait 100
+end
+*shX
+if ( lang = "ja" ) {
+dialog "EXITボタンを使用してください"
+}
+if ( lang = "en" ) {
+dialog "Please use EXIT"
+}
+stop

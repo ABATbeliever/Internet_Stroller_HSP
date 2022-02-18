@@ -1,0 +1,16 @@
+======<InternetStrollerへようこそ>======
+
+・このソフトにウイルスはありません
+・このソフトのコードを再配布しないでください
+・このソフトは仕様上WDに消されることがあります。
+　が、ファイルは起動時に自動チェックされるため安心してください
+
+====== <Welcome to Internet Stroller> ======
+
+・ There is no virus in this software
+・ Please do not redistribute the code of this software
+・ This software may be erased by WD due to the specifications. surely,
+   But rest assured that the file will be checked automatically at startup.
+
+
+=====================================================Made by ABATBeliever
