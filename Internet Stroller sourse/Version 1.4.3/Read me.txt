@@ -14,16 +14,3 @@
 
 
 =====================================================Made by ABATBeliever
-
-===========Language============
-Please Write on app\lang.txt
-
-China=cn
-English=en
-French=fr
-German=de
-Japanese=jp
-Russian=ru
-
-ブラウザ起動時のスタートアップはappフォルダ内の"Startupweb.txt"を弄れば変更できます
-You can change the startup when the browser starts by using with "Startupweb.txt" in the app folder.
