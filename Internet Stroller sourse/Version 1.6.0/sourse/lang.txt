@@ -1,0 +1,99 @@
+@echo off
+title Language settings - InternetStroller
+set Error=0
+set Secret=0
+set Check=0
+goto main
+
+:main
+cls
+for /f %%a in (version.txt) do (
+echo Internet Stroller Version %%a
+)
+echo InternetStroller - Language Settings Version 2.69
+echo.
+echo Please select your language!
+echo.
+echo ******=List=******
+echo 1:Chinese
+echo 2:English
+echo 3:French
+echo 4:German
+echo 5:Japanese
+echo 6:Russian
+echo 7:Ukrainian
+echo 0:EXIT
+echo ******************
+echo.
+if "%Error%" == "1" (echo 【Please enter in 0～8!】
+echo.)
+if "%Secret%" == "1" (
+set Secret=0
+echo How the hell did you find this place?
+echo Let's put this screen up on Twitter!
+echo.
+)
+if "%Check%" == "1" (echo Rewrite completed!
+echo The language will be changed after reboot.
+echo.
+)
+set Check=0
+set /p lang="Select:"
+if "%lang%" == "1" (goto 1)
+if "%lang%" == "2" (goto 2)
+if "%lang%" == "3" (goto 3)
+if "%lang%" == "4" (goto 4)
+if "%lang%" == "5" (goto 5)
+if "%lang%" == "6" (goto 6)
+if "%lang%" == "7" (goto 7)
+if "%lang%" == "8" (goto 8)
+if "%lang%" == "0" (exit)
+set Error=1
+goto main
+
+:1
+del lang.txt
+>>lang.txt echo cn
+set Error=0
+set Check=1
+goto main
+:2
+del lang.txt
+>>lang.txt echo en
+set Error=0
+set Check=1
+goto main
+:3
+del lang.txt
+>>lang.txt echo fr
+set Error=0
+set Check=1
+goto main
+:4
+del lang.txt
+>>lang.txt echo de
+set Error=0
+set Check=1
+goto main
+:5
+del lang.txt
+>>lang.txt echo jp
+set Error=0
+set Check=1
+goto main
+:6
+del lang.txt
+>>lang.txt echo ru
+set Error=0
+set Check=1
+goto main
+:7
+del lang.txt
+>>lang.txt echo ua
+set Error=0
+set Check=1
+goto main
+:8
+set Error=0
+set Secret=1
+goto main
